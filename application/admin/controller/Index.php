@@ -8,5 +8,6 @@ class Index extends Controller
         return $this->fetch();
     }
     public function welcome(){
+        echo "欢迎登陆";
     }
 }
