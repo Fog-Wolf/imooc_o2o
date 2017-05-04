@@ -7,6 +7,12 @@ use think\Request;
 
 class Category extends Controller
 {
+    private  $obj;
+    public function _initialize()
+    {
+        $this->obj = model('Category');
+    }
+
     /**
      * 显示资源列表
      *
@@ -25,8 +31,11 @@ class Category extends Controller
      */
     public function add()
     {
-        //
-        return $this->fetch();
+        //获取数据库中的一级栏目
+        $categorys = $this->obj->getNormalFristCategory();
+        return $this->fetch('',[
+            'categorys'=>$categorys,
+        ]);
     }
 
     /**
@@ -38,7 +47,19 @@ class Category extends Controller
     public function save(Request $request)
     {
         //
-        print_r($request->post());
+        $data = $request->post();
+        $validate = validate('Category');
+        if (!$validate->scene('add')->check($data)){
+                $this->error($validate->getError());
+        }
+
+        $res = $this->obj->add($data);
+        echo $res;
+        if ($res){
+            $this->success('添加成功');
+        }else{
+            $this->error('添加失败');
+        }
     }
 
     /**
