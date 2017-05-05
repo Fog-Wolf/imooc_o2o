@@ -20,8 +20,12 @@ class Category extends Controller
      */
     public function index()
     {
+       $parentid = input('get.parentid',0,'intval');
+        $category = $this->obj->getFirstCategory($parentid);
         //显示页面
-        return $this->fetch();
+        return $this->fetch('',[
+            'category'=>$category,
+        ]);
     }
 
     /**
@@ -32,7 +36,7 @@ class Category extends Controller
     public function add()
     {
         //获取数据库中的一级栏目
-        $categorys = $this->obj->getNormalFristCategory();
+        $categorys = $this->obj->getNormalFirstCategory();
         return $this->fetch('',[
             'categorys'=>$categorys,
         ]);
@@ -54,7 +58,7 @@ class Category extends Controller
         }
 
         $res = $this->obj->add($data);
-        echo $res;
+        //echo $res;
         if ($res){
             $this->success('添加成功');
         }else{

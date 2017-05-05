@@ -12,8 +12,8 @@ class Category extends Model
 //        $data['create_time'] = time();
         return $this->save($data);
     }
-    //获取一级栏目
-    public function getNormalFristCategory(){
+    //获取选项中一级栏目
+    public function getNormalFirstCategory(){
         $data=[
             'status' =>1,
             'parent_id' =>0,
@@ -24,5 +24,22 @@ class Category extends Model
         return $this->where($data)
             ->order($order)
             ->select();
+    }
+    //获取页面一级栏目
+    public function getFirstCategory($parentid = 0){
+        $data = [
+            'parent_id'=>$parentid,
+            'status' =>['neq',-1],
+        ];
+        $order =[
+            'id'=>'desc',
+        ];
+        $result = $this->where($data)
+            ->order($order)
+            ->paginate(2);//分页
+        //显示sql语句
+//        echo $this->getLastSql();
+        return $result;
+
     }
 }
