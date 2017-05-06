@@ -12,6 +12,7 @@ class Category extends Model
 //        $data['create_time'] = time();
         return $this->save($data);
     }
+
     //获取选项中一级栏目
     public function getNormalFirstCategory(){
         $data=[
@@ -32,11 +33,12 @@ class Category extends Model
             'status' =>['neq',-1],
         ];
         $order =[
+            'listorder'=>'desc',
             'id'=>'desc',
         ];
         $result = $this->where($data)
             ->order($order)
-            ->paginate(2);//分页
+            ->paginate();//分页
         //显示sql语句
 //        echo $this->getLastSql();
         return $result;
