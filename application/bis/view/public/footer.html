@@ -1,0 +1,60 @@
+{load href="__STATIC__/admin/hui/lib/jquery/1.9.1/jquery.min.js" /}
+<script type="text/javascript" src="__STATIC__/admin/hui/lib/layer/2.1/layer.js"></script> 
+<script type="text/javascript" src="__STATIC__/admin/hui/lib/My97DatePicker/WdatePicker.js"></script> 
+<script type="text/javascript" src="__STATIC__/admin/hui/lib/jquery.validation/1.14.0/jquery.validate.min.js"></script> 
+<script type="text/javascript" src="__STATIC__/admin/hui/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="__STATIC__/admin/hui/lib/jquery.validation/1.14.0/messages_zh.min.js"></script>  
+<script type="text/javascript" src="__STATIC__/admin/hui/static/h-ui/js/H-ui.js"></script> 
+<script type="text/javascript" src="__STATIC__/admin/hui/static/h-ui.admin/js/H-ui.admin.js"></script>
+{load href="__STATIC__/admin/js/common.js" /}
+
+<!--城市相关二级内容-->
+<script type="text/javascript">
+    $(".cityId").change(function (){
+        city_id =$(this).val();
+        url =SCOPE.city_url;
+        postData ={'id':city_id};
+       //抛送请求
+        $.post(url,postData,function(result){
+            //相关业务处理
+            if(result.status ==1){
+                //将信息填充到html
+                data = result.data;
+                city_html="";
+                //将数组循环填充到页面中
+                $(data).each(function(i){
+                    city_html +="<option value='"+this.id+"'>"+this.name+"</option>";
+                    $('.se_city_id').html(city_html);
+                })
+            }else if(result.status ==0){
+                $('.se_city_id').html('');
+            }
+        },'JSON');
+    });
+</script>
+
+<!--分类相关二级内容-->
+<script type="text/javascript">
+    $(".categoryId").change(function (){
+        category_id =$(this).val();
+        url =SCOPE.category_url;
+        postData ={'id':category_id};
+        //抛送请求
+        $.post(url,postData,function(result){
+            //相关业务处理
+            if(result.status ==1){
+                //将信息填充到html
+                data = result.data;
+                category_html="";
+                //将数组循环填充到页面中
+                $(data).each(function(i){
+                    category_html +='<input name ="se_category_id[]" type="checkbox" id="checkbox-moban" value="'+this.id+'"/>'+this.name;
+                    category_html +='<label for="checkbox-moban">&nbsp;</label>';
+                    $('.se_category_id').html(category_html);
+                })
+            }else if(result.status ==0){
+                $('.se_category_id').html('');
+            }
+        },'JSON');
+    });
+</script>

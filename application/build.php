@@ -35,5 +35,9 @@ return [
             'controller' =>['Index','Image'],
             'view'=>['Index/index'],
     ],
+    'bis'=>[
+            '__dir__' =>['controller','view'],
+            'controller' =>['Register','Login'],
+    ],
     // 其他更多的模块定义
 ];
