@@ -45,3 +45,16 @@ function doCurl($url,$type=0,$data=[]){
     curl_close($ch);
     return $output;
 }
+
+//商户入驻申请文案
+function bisRegister($status){
+    if ($status ==1){
+        $str = "入驻申请成功";
+    }elseif ($status == 0){
+        $str = "待审核，审核后及时通知";
+    }elseif ($status == -1){
+        $str ="抱歉，审核失败，请确认您提交的资料是否属实";
+    }else{
+        $str ="审核已过期";
+    }
+}

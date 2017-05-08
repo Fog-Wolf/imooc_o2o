@@ -69,7 +69,7 @@ class Register extends Controller
              'category_path'=>$data['category_id'].','.$data['cat'],
              'city_id'=>$data['city_id'],
              'city_path'=>empty($data['se_city_id'])?$data['city_id']:$data['city_id'].','.$data['se_city_id'],
-             'address'=>$data['address'],
+             'api_address'=>$data['address'],
              'open_time'=>$data['open_time'],
              'content'=>empty($data['content'])? '':$data['content'],
              'is_main'=>1,//代表的是总店信息
@@ -100,9 +100,15 @@ class Register extends Controller
         $title ='o2o入驻申请通知';
         $content="您提交的入驻申请需要等待平台方审核，您可以通过点击链接<a href='".$url."' target='_blank'>查看链接</a>查看审核状态";
         \phpmailer\Email::send($data['email'],$title,$content);
-        $this->success('申请成功');
+        $this->success('申请成功',url('register/waiting',['id'=>$bisid]));
     }
-    public function waiting(){
-        echo 'test';
+    public function waiting($id){
+        if(empty($id)){
+            $this->error('error');
+        }
+        $detail = model('Bis')->get($id);
+        return $this->fetch('',[
+            'detail'=>$detail,
+        ]);
     }
 }
