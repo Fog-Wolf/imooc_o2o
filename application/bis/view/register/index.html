@@ -2,7 +2,7 @@
 {include file="public/header" /}
 <div class="cl pd-5 bg-1 bk-gray mt-20"> <h1>商户入驻申请</h1></div>
 <article class="page-container">
-	<form class="form form-horizontal"  method="post" action="">
+	<form class="form form-horizontal"  method="post" action="{:url('register/add')}">
 	基本信息：
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>商户名称：</label>
@@ -183,8 +183,23 @@ $(function(){
 	var SCOPE={
 		'city_url':'{:url('api/city/getCityByParentId')}',
 		'category_url':'{:url('api/category/getCategoryByParentId')}',
+		'uploadify_swf':'__STATIC__/admin/uploadify/uploadify.swf',
+		'image_upload':'{:url('api/image/upload')}',
 	};
 
+</script>
+<script>
+	$.ajax({
+		type:"GET",
+		url:"{:url('register/add')}",
+		data:username='username',
+		datatype:'json',
+		success:function (result) {
+			if(result.status==1){
+				alert('用户已存在');
+			}
+		}
+	});
 </script>
 </body>
 </html>
