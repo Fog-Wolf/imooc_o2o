@@ -58,3 +58,44 @@ function bisRegister($status){
         $str ="审核已过期";
     }
 }
+
+/**
+ * 通用分页样式
+ * @param $obj
+ */
+function pagination($obj){
+    if(!$obj){
+        return '';
+    }
+    return '<div class="cl pd-5 bg-1 bk-gray mt-20 tp5-o2o">'.$obj->render().'</div>';
+}
+
+function getSeCityName($path){
+    if(empty($path)){
+        return '';
+    }
+    if(preg_match('/,/',$path)){
+        $cityPath = explode(',',$path);
+        $cityId =$cityPath[1];
+    }else{
+        $cityId =$path;
+    }
+
+    $city = model('City')->get($cityId);
+    return $city->name;
+}
+
+function getSeCategoryName($path){
+    if(empty($path)){
+        return '';
+    }
+    if(preg_match('/,/',$path)){
+        $categoryPath = explode(',',$path);
+        $categoryId =$categoryPath[1];
+    }else{
+        $categoryId =$path;
+    }
+
+    $category = model('Category')->get($categoryId);
+    return $category->name;
+}
