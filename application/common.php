@@ -15,7 +15,10 @@ function status($status){
         $str ="<span class='label label-success radius'>正常</span>";
     } elseif($status ==0){
         $str ="<span class='label label-danger radius'>待审</span>";
-    }else{
+    }elseif ($status==2){
+        $str ="<span class='label label-danger radius'>不通过</span>";
+    }
+    else{
         $str ="<span class='label label-danger radius'>删除</span>";
     }
     return $str;

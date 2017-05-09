@@ -58,68 +58,40 @@ class Bis extends Controller
     }
 
     /**
-     * 显示创建资源表单页.
-     *
-     * @return \think\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * 保存新建的资源
-     *
-     * @param  \think\Request  $request
-     * @return \think\Response
-     */
-    public function save(Request $request)
-    {
-        //
-    }
-
-    /**
-     * 显示指定的资源
-     *
-     * @param  int  $id
-     * @return \think\Response
-     */
-    public function read($id)
-    {
-        //
-    }
-
-    /**
-     * 显示编辑资源表单页.
-     *
-     * @param  int  $id
-     * @return \think\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * 保存更新的资源
-     *
-     * @param  \think\Request  $request
-     * @param  int  $id
-     * @return \think\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
      * 删除指定资源
      *
      * @param  int  $id
      * @return \think\Response
      */
-    public function delete($id)
-    {
-        //
+    public function delete($id,$status)
+{
+    //
+    $data=input('get.');
+    $data =[
+        'id'=>intval($id),
+        'status'=>intval($status),
+    ];
+    $validate = validate('Category');
+    if (!$validate->scene('status')->check($data)){
+        $this->error($validate->getError());
     }
+    $res = $this->obj->save(['status'=>$data['status']],['id'=>intval($data['id'])]);
+    $location = model('BisLocation')->save(['status'=>$data['status']],['bis_id'=>$data['id']],'is_main=>1');
+    $account = model('BisAccount')->save(['status'=>$data['status']],['bis_id'=>$data['id']],'is_main=>1');
+    //echo $res;
+    if ($res && $location && $account){
+        if ($data['status']==1){
+            $title ='o2o入驻申请通知';
+            $content="您提交的入驻申请成功";
+            \phpmailer\Email::send($data['email'],$title,$content);
+        }elseif($data['status']==2){
+            $title ='o2o入驻申请通知';
+            $content="您提交的入驻申请未通过，请核实实际信息";
+            \phpmailer\Email::send($data['email'],$title,$content);
+        }
+        $this->success('修改成功');
+    }else{
+        $this->error('修改失败');
+    }
+}
 }
