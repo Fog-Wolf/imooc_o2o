@@ -102,3 +102,12 @@ function getSeCategoryName($path){
     $category = model('Category')->get($categoryId);
     return $category->name;
 }
+
+function is_main($is_main){
+    if ($is_main ==1){
+        $str = "<span class='label label-success radius'>总店</span>";
+    }else{
+        $str = "<span class='label label-success radius'>分店</span>";
+    }
+    return $str;
+}

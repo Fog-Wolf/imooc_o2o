@@ -11,5 +11,15 @@ use think\Model;
 
 class BisLocation extends BaseModel
 {
-
+    public function getBisLocationByUser($user){
+        $order =[
+            'id'=>'desc',
+        ];
+        $data=[
+            'bis_id'=>$user,
+            'is_main'=>0
+        ];
+        $res = $this->where($data)->order($order)->paginate(3);
+        return $res;
+    }
 }

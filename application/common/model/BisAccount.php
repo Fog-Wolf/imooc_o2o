@@ -11,5 +11,8 @@ use think\Model;
 
 class BisAccount extends BaseModel
 {
-
+    public function updateById($data,$id){
+        //allowfield 过滤data数组中的非数据表中的数据
+        return $this->allowField(true)->save($data,['id'=>$id]);
+    }
 }

@@ -29,7 +29,7 @@ class Bis extends Validate
         ['faren','require'],
         ['faren_tel','require'],
         ['contact','require'],
-        ['tel','require'],
+        ['tel','require|length:13'],
         ['username','require|min:6'],
         ['password','require'],
     ];
@@ -39,5 +39,6 @@ class Bis extends Validate
         'add'=>['name','email','logo','city_id','bank_info','bank_name','bank_user','faren','faren_tel'],
         'first' =>['contact','tel'],
         'username'=>['username','password'],
+        'addStore'=>['name','logo','contact','tel'],//用户分店添加检验
     ];
 }
