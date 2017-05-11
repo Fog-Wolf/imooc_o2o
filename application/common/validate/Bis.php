@@ -40,5 +40,6 @@ class Bis extends Validate
         'first' =>['contact','tel'],
         'username'=>['username','password'],
         'addStore'=>['name','logo','contact','tel'],//用户分店添加检验
+        'deal' =>['name'],//团购检验
     ];
 }

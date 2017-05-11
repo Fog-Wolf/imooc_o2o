@@ -22,4 +22,13 @@ class BisLocation extends BaseModel
         $res = $this->where($data)->order($order)->paginate(3);
         return $res;
     }
+    public function getNormalLocationByBisId($bisid){
+         $data=[
+             'bis_id'=>$bisid,
+             'status'=>1,
+         ];
+        $result = $this->where($data)->order('id','desc')->select();
+        return $result;
+    }
+
 }

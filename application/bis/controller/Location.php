@@ -36,7 +36,7 @@ class Location extends Base
     public function add()
     {
         if (request()->isPost()){
-            $data =input('post.');
+            $data = input("post.");
             $bisid =$this->getLoginUser()->bis_id;
             $data['cat']='';
             if (!empty($data['se_category_id'])){
@@ -90,7 +90,7 @@ class Location extends Base
         }
     }
     public function detail(){
-        $id = input('get.id');
+        $id= input("get.id");
         if (empty($id)){
             return $this->error('ID错误');
         }

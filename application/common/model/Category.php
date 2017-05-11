@@ -55,4 +55,5 @@ class Category extends Model
 
         return $this->where($data)->order($order)->select();
     }
+
 }

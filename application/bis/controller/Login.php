@@ -7,9 +7,9 @@ class Login extends Controller
         if (request()->isPost()){
             //登陆的逻辑
             //获取数据
-            $data=input('post.');
+            $data = input("post.");
             //通过用户名获取用户相关数据
-            $validate = validate('Category');
+            $validate = validate('Bis');
             if (!$validate->scene('username')->check($data)){
                 $this->error($validate->getError());
             }
@@ -25,7 +25,7 @@ class Login extends Controller
             session('bisAccount',$res,'bis');
             return $this->success('登陆成功',url('index/index'));
         }else{
-            //获取sessIon
+            //获取session
             $account = session('bisAccount','','bis');
             if ($account && $account->id){
                 return $this->redirect(url('index/index'));
